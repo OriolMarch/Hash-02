@@ -1,3 +1,2 @@
-# Fitxers compilats: es generen amb javac i no s'han de pujar al repositori
 *.class
 out/
