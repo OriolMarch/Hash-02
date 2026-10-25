@@ -24,6 +24,7 @@ public class GestioUsuaris {
             System.out.println("--- Usuaris ---");
             System.out.println("1. Registrar usuari");
             System.out.println("2. Iniciar sessió");
+            System.out.println("3. Prova: iniciar sessió amb una salt diferent");
             System.out.println("0. Tornar");
             System.out.print("Opció: ");
             opcio = scanner.nextLine().trim();
@@ -33,7 +34,10 @@ public class GestioUsuaris {
                     registrarUsuari();
                     break;
                 case "2":
-                    iniciarSessio();
+                    iniciarSessio(false);
+                    break;
+                case "3":
+                    iniciarSessio(true);
                     break;
                 case "0":
                     break;
@@ -76,8 +80,8 @@ public class GestioUsuaris {
         System.out.println("  Hash: " + hash);
     }
 
-    // Part 4
-    private void iniciarSessio() {
+    // Part 4 (i prova de la Part 5 si saltDiferent és true)
+    private void iniciarSessio(boolean saltDiferent) {
         System.out.print("Nom d'usuari: ");
         String nom = scanner.nextLine().trim();
         System.out.print("Contrasenya: ");
@@ -89,13 +93,23 @@ public class GestioUsuaris {
             return;
         }
 
-        // Es fa servir la salt guardada de l'usuari
-        String hashCalculat = calcularHashAmbSalt(usuari.getSalt(), contrasenya);
+        // Normalment es fa servir la salt guardada de l'usuari
+        byte[] salt = usuari.getSalt();
+        if (saltDiferent) {
+            salt = new byte[MIDA_SALT];
+            random.nextBytes(salt);
+            System.out.println("Salt guardada:   " + UtilsHash.aHexadecimal(usuari.getSalt()));
+            System.out.println("Salt utilitzada: " + UtilsHash.aHexadecimal(salt));
+        }
+
+        String hashCalculat = calcularHashAmbSalt(salt, contrasenya);
         System.out.println("Hash calculat: " + hashCalculat);
         System.out.println("Hash guardat:  " + usuari.getHash());
 
         if (hashCalculat.equals(usuari.getHash())) {
             System.out.println("Accés permès. Benvingut/da, " + nom);
+        } else if (saltDiferent) {
+            System.out.println("Accés denegat: amb una salt diferent el hash no coincideix");
         } else {
             System.out.println("Contrasenya incorrecta. Accés denegat");
         }
