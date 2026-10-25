@@ -17,6 +17,7 @@ public class Main {
             System.out.println();
             System.out.println("===== PE02 - Hash i Salt =====");
             System.out.println("1. Part 1: Càlcul de resums");
+            System.out.println("2. Part 2: Integritat dels missatges");
             System.out.println("0. Sortir");
             System.out.print("Opció: ");
             opcio = scanner.nextLine().trim();
@@ -24,6 +25,9 @@ public class Main {
             switch (opcio) {
                 case "1":
                     new MissatgesSimulacio(scanner).principal();
+                    break;
+                case "2":
+                    new EnviamentMissatges(scanner).principal();
                     break;
                 case "0":
                     System.out.println("Fins aviat!");
