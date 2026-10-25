@@ -115,12 +115,12 @@ public class GestioUsuaris {
         }
     }
 
-    // Hash de salt + contrasenya
+    // Hash de contrasenya + salt (la salt s'afegeix a la contrasenya, com als apunts)
     private String calcularHashAmbSalt(byte[] salt, String contrasenya) {
         byte[] bytesContrasenya = contrasenya.getBytes(StandardCharsets.UTF_8);
-        byte[] dades = new byte[salt.length + bytesContrasenya.length];
-        System.arraycopy(salt, 0, dades, 0, salt.length);
-        System.arraycopy(bytesContrasenya, 0, dades, salt.length, bytesContrasenya.length);
+        byte[] dades = new byte[bytesContrasenya.length + salt.length];
+        System.arraycopy(bytesContrasenya, 0, dades, 0, bytesContrasenya.length);
+        System.arraycopy(salt, 0, dades, bytesContrasenya.length, salt.length);
         return UtilsHash.calcularHash(dades);
     }
 }

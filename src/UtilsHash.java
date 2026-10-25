@@ -10,7 +10,7 @@ public class UtilsHash {
         return calcularHash(text.getBytes(StandardCharsets.UTF_8));
     }
 
-    // Hash de bytes (per la salt + contrasenya)
+    // Hash de bytes (per la contrasenya + salt)
     public static String calcularHash(byte[] dades) {
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
