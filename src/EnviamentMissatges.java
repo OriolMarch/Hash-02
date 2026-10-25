@@ -20,7 +20,7 @@ public class EnviamentMissatges {
 
         do {
             System.out.println();
-            System.out.println("--- Part 2: Integritat dels missatges ---");
+            System.out.println("--- Integritat dels missatges ---");
             System.out.println("1. Enviar missatge (emissor)");
             System.out.println("2. Rebre missatge (receptor)");
             System.out.println("0. Tornar");

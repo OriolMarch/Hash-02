@@ -23,6 +23,7 @@ public class GestioUsuaris {
             System.out.println();
             System.out.println("--- Usuaris ---");
             System.out.println("1. Registrar usuari");
+            System.out.println("2. Iniciar sessió");
             System.out.println("0. Tornar");
             System.out.print("Opció: ");
             opcio = scanner.nextLine().trim();
@@ -30,6 +31,9 @@ public class GestioUsuaris {
             switch (opcio) {
                 case "1":
                     registrarUsuari();
+                    break;
+                case "2":
+                    iniciarSessio();
                     break;
                 case "0":
                     break;
@@ -70,6 +74,31 @@ public class GestioUsuaris {
         System.out.println("  Nom:  " + nom);
         System.out.println("  Salt: " + UtilsHash.aHexadecimal(salt));
         System.out.println("  Hash: " + hash);
+    }
+
+    // Part 4
+    private void iniciarSessio() {
+        System.out.print("Nom d'usuari: ");
+        String nom = scanner.nextLine().trim();
+        System.out.print("Contrasenya: ");
+        String contrasenya = scanner.nextLine();
+
+        Usuari usuari = usuaris.get(nom);
+        if (usuari == null) {
+            System.out.println("L'usuari " + nom + " no està registrat");
+            return;
+        }
+
+        // Es fa servir la salt guardada de l'usuari
+        String hashCalculat = calcularHashAmbSalt(usuari.getSalt(), contrasenya);
+        System.out.println("Hash calculat: " + hashCalculat);
+        System.out.println("Hash guardat:  " + usuari.getHash());
+
+        if (hashCalculat.equals(usuari.getHash())) {
+            System.out.println("Accés permès. Benvingut/da, " + nom);
+        } else {
+            System.out.println("Contrasenya incorrecta. Accés denegat");
+        }
     }
 
     // Hash de salt + contrasenya

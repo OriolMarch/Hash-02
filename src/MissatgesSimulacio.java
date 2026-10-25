@@ -14,7 +14,7 @@ public class MissatgesSimulacio {
 
         do {
             System.out.println();
-            System.out.println("--- Part 1: Càlcul de resums ---");
+            System.out.println("--- Càlcul de resums ---");
             System.out.println("1. Calcular el hash d'un missatge");
             System.out.println("2. Comparar el hash de dos missatges");
             System.out.println("3. Modificar un missatge i comparar");
